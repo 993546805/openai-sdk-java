@@ -119,6 +119,10 @@ public class CompletionRequest implements Serializable {
         SPARK_GENERAL("general"),
         ULTRA_4("4.0Ultra"),
 
+        // Ali
+        QWEN_MAX("qwen-max"),
+        QWEN_VL_MAX_0809("qwen-vl-max-0809"),
+        QWEN_TURBO("qwen-turbo"),
 
 
 

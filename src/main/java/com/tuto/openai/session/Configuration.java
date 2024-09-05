@@ -1,6 +1,8 @@
 package com.tuto.openai.session;
 
 import com.tuto.openai.executor.Executor;
+import com.tuto.openai.executor.model.ali.ChatAliModelExecutor;
+import com.tuto.openai.executor.model.ali.config.ChatAliConfig;
 import com.tuto.openai.executor.model.chatglm.config.ChatGLMConfig;
 import com.tuto.openai.executor.model.chatglm.ChatGLMModelExecutor;
 import com.tuto.openai.executor.model.chatgpt.config.ChatGPTConfig;
@@ -34,6 +36,10 @@ public class Configuration {
      * ChatSpark 配置
      */
     private ChatSparkConfig chatSparkConfig;
+    /**
+     * 阿里配置
+     */
+    private ChatAliConfig aliConfig;
 
 
     private OkHttpClient okHttpClient;
@@ -62,9 +68,19 @@ public class Configuration {
         // ChatGLM 类型执行器填充
         Executor chatGLMExecutor = new ChatGLMModelExecutor(this);
         Executor sparkExecutor = new ChatSparkModelExecutor(this);
+        Executor aliExecutor = new ChatAliModelExecutor(this);
+
+        // 智谱
         executorGroup.put(CompletionRequest.Model.CHAT_GLM_4_FLASH.getCode(), chatGLMExecutor);
+
+        // 讯飞
         executorGroup.put(CompletionRequest.Model.SPARK_GENERAL.getCode(), sparkExecutor);
         executorGroup.put(CompletionRequest.Model.ULTRA_4.getCode(), sparkExecutor);
+
+        // 阿里
+        executorGroup.put(CompletionRequest.Model.QWEN_MAX.getCode(), aliExecutor);
+        executorGroup.put(CompletionRequest.Model.QWEN_VL_MAX_0809.getCode(), aliExecutor);
+        executorGroup.put(CompletionRequest.Model.QWEN_TURBO.getCode(), aliExecutor);
 
         return this.executorGroup;
     }
